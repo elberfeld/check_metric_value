@@ -1,5 +1,6 @@
 # check_metric_value
 Nagios/Icinga module to check Prometheus exporter metrics
+Uses: https://github.com/prometheus/prom2json
 
 # Icinga2 Command definition
 ~~~
