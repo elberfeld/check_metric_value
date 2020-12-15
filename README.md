@@ -10,23 +10,15 @@ object CheckCommand "check_metric_value" {
   command = [ "/opt/check_metric_value/check_metric_value.py" ] 
 
   arguments = {
-    "-P" = "/root/go/bin/prom2json"
+    "-P" = "/opt/bin/prom2json"
     "-U" = "$metric_url$"
     "-M" = "$metric_name$"
+    "-n" = "$metric_labelname$"
+    "-v" = "$metric_labelvalue$"
     "-o" = "$metric_operator$"
+    "-u" = "$metric_unit$"
     "-w" = "$metric_warn$"
     "-c" = "$metric_crit$"
-    "-n" = {
-      set_if = "$metric_labelname$"
-      value = "$metric_labelname$"
-    }
-    "-v" = {
-      set_if = "$metric_labelvalue$"
-      value = "$metric_labelvalue$"
-    }
-    "-u" = {
-      set_if = "$metric_unit$"
-      value = "$metric_unit$"
     }
 
   }
