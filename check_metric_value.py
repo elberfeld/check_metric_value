@@ -119,13 +119,13 @@ def process_metric(args, metric, metric_value):
       process_metric_value(args, metric, metric_value)
 
   elif metric_type == "HISTOGRAMM":
-      exit_unknown(f"Unsupported Metric type: {metric_type} -- {metric}")
+      exit_unknown(f"Unsupported Metric type: {metric_type}")
 
   elif metric_type == "SUMMARY":
-    exit_unknown(f"Unsupported Metric type: {metric_type} -- {metric}")
+    exit_unknown(f"Unsupported Metric type: {metric_type}")
 
   else:
-    exit_unknown(f"Unsupported Metric type: {metric_type} -- {metric}")
+    exit_unknown(f"Unsupported Metric type: {metric_type}")
 
 
 
@@ -166,24 +166,24 @@ def process_metric_value_number(args, metric, metric_value):
   if args.operator == 'gt':
 
     if value > args.critical:
-      exit_critical(f"value = {value} -- {metric}")
+      exit_critical(f"value = {value}")
 
     elif value > args.warning:
-      exit_warning(f"value = {value} -- {metric}")
+      exit_warning(f"value = {value}")
 
     else:
-      exit_ok(f"value = {value} -- {metric}")
+      exit_ok(f"value = {value}")
 
   elif args.operator == 'lt':
 
     if value < args.critical:
-      exit_critical(f"value = {value} -- {metric}")
+      exit_critical(f"value = {value}")
 
     elif value < args.warning:
-      exit_warning(f"value = {value} -- {metric}")
+      exit_warning(f"value = {value}")
 
     else:
-      exit_ok(f"value = {value} -- {metric}")
+      exit_ok(f"value = {value}")
 
 
 
@@ -220,24 +220,24 @@ def process_metric_value_date(args, metric, metric_value):
   if args.operator == 'gt-date':
 
     if dt + crit > datetime.datetime.now():
-      exit_critical(f"value = {value} -- {metric}")
+      exit_critical(f"value = {value}")
 
     elif dt + warn > datetime.datetime.now():
-      exit_warning(f"value = {value} -- {metric}")
+      exit_warning(f"value = {value}")
 
     else:
-      exit_ok(f"value = {value} -- {metric}")
+      exit_ok(f"value = {value}")
 
   elif args.operator == 'lt-date':
 
     if dt + crit < datetime.datetime.now():
-      exit_critical(f"value = {value} -- {metric}")
+      exit_critical(f"value = {value}")
 
     elif dt + warn < datetime.datetime.now():
-      exit_warning(f"value = {value} -- {metric}")
+      exit_warning(f"value = {value}")
 
     else:
-      exit_ok(f"value = {value} -- {metric}")
+      exit_ok(f"value = {value}")
 
 
 
