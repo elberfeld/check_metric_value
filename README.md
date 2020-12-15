@@ -2,7 +2,7 @@
 Nagios/Icinga module to check Prometheus exporter metrics
 
 # Icinga2 Command definition
-
+~~~
 object CheckCommand "check_metric_value" {
   import "plugin-check-command"
 
@@ -30,9 +30,9 @@ object CheckCommand "check_metric_value" {
 
   }
 }
-
+~~~
 # Sample Icinga2 Service 
-
+~~~
 apply Service "node_reboot_required" {
   import "generic-service"
 
@@ -47,3 +47,4 @@ apply Service "node_reboot_required" {
 
   assign where host.name == "{{host}}" host.vars.os == "Linux"
 }
+~~~
