@@ -19,8 +19,6 @@ object CheckCommand "check_metric_value" {
     "-u" = "$metric_unit$"
     "-w" = "$metric_warn$"
     "-c" = "$metric_crit$"
-    }
-
   }
 }
 ~~~
