@@ -193,8 +193,10 @@ def process_metric_value_date(args, metric, metric_value):
   """
   Auswertung eines Metrik-Wertes mit Vergleich fuer Timestamp
   """
+  now = datetime.datetime.now()
+
   if args.debug:
-    print(f"DEBUG: [process_metric_value_date] operator = {args.operator}, unit = {args.unit}, warning = {args.warning}, critical = {args.critical}, metric_value = {metric_value}, metric = {metric}")
+    print(f"DEBUG: [process_metric_value_date] now = {now}, operator = {args.operator}, unit = {args.unit}, warning = {args.warning}, critical = {args.critical}, metric_value = {metric_value}, metric = {metric}")
 
   try:
     value = float(metric_value['value'])
@@ -203,43 +205,53 @@ def process_metric_value_date(args, metric, metric_value):
   except Exception as err:
      exit_unknown(f"DEBUG: [process_metric_value_date] error getting metric value as float, metric_value = {metric_value}, metric = {metric} -- {err}")
 
+  if dt > now:
+    delta = dt - now
+  else:
+    delta = now - dt
+
   if args.debug:
-    print(f"DEBUG: [process_metric_value_date] Parsed value(datetime) = {dt}")
+    print(f"DEBUG: [process_metric_value_date] Parsed value(datetime) = {dt}, delta = {delta}")
 
   if args.unit == 'days':
     warn = datetime.timedelta(days=args.warning)
     crit = datetime.timedelta(days=args.critical)
+    perfdata = f"delta={delta.days}days;{args.warning};{args.critical};;"
   elif args.unit == 'hours':
     warn = datetime.timedelta(hours=args.warning)
     crit = datetime.timedelta(hours=args.critical)
+    perfdata = f"delta={delta.seconds/60/60}hours;{args.warning};{args.critical};;"
   elif args.unit == 'minutes':
     warn = datetime.timedelta(minutes=args.warning)
     crit = datetime.timedelta(minutes=args.critical)
+    perfdata = f"delta={delta.seconds/60}minutes;{args.warning};{args.critical};;"
   else:
     exit_unknown(f"DEBUG: [process_metric_value_date] invalid date compare unit: {args.unit}")
 
 
+  status_message = f"timestamp = {dt}, delta = {delta}|{perfdata}"
+
   if args.operator == 'gt-date':
 
-    if dt + crit > datetime.datetime.now():
-      exit_critical(f"value = {value}")
+    if dt + crit > now:
+      exit_critical(status_message)
 
-    elif dt + warn > datetime.datetime.now():
-      exit_warning(f"value = {value}")
+    elif dt + warn > now:
+      exit_warning(status_message)
 
     else:
-      exit_ok(f"value = {value}")
+      exit_ok(status_message)
 
   elif args.operator == 'lt-date':
 
-    if dt + crit < datetime.datetime.now():
-      exit_critical(f"value = {value}")
+    if dt + crit < now:
+      exit_critical(status_message)
 
-    elif dt + warn < datetime.datetime.now():
-      exit_warning(f"value = {value}")
+    elif dt + warn < now:
+      exit_warning(status_message)
 
     else:
-      exit_ok(f"value = {value}")
+      exit_ok(status_message)
 
 
 
