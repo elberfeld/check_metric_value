@@ -166,24 +166,24 @@ def process_metric_value_number(args, metric, metric_value):
   if args.operator == 'gt':
 
     if value > args.critical:
-      exit_critical(f"value = {value}")
+      exit_critical(f"value = {value}|value={value:9.6f}")
 
     elif value > args.warning:
-      exit_warning(f"value = {value}")
+      exit_warning(f"value = {value}|value={value:9.6f}")
 
     else:
-      exit_ok(f"value = {value}")
+      exit_ok(f"value = {value}|value={value:9.6f}")
 
   elif args.operator == 'lt':
 
     if value < args.critical:
-      exit_critical(f"value = {value}")
+      exit_critical(f"value = {value}|value={value:9.6f}")
 
     elif value < args.warning:
-      exit_warning(f"value = {value}")
+      exit_warning(f"value = {value}|value={value:9.6f}")
 
     else:
-      exit_ok(f"value = {value}")
+      exit_ok(f"value = {value}|value={value:9.6f}")
 
 
 
