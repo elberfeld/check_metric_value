@@ -28,7 +28,7 @@ apply Service "node_reboot_required" {
   import "generic-service"
 
   check_command = "check_metric_value"
-  enable_perfdata = false
+  enable_perfdata = true
 
   vars.metric_url = "http://{{int_ip4}}:9100/metrics"
   vars.metric_name = "node_reboot_required"

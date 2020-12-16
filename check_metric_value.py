@@ -163,27 +163,29 @@ def process_metric_value_number(args, metric, metric_value):
   if args.debug:
     print(f"DEBUG: [process_metric_value_number] Parsed value(float) = {value}")
 
+  status_message = f"value = {value}|value={value};{args.warning};{args.critical};;"
+
   if args.operator == 'gt':
 
     if value > args.critical:
-      exit_critical(f"value = {value}|value={value:9.6f}")
+      exit_critical(status_message)
 
     elif value > args.warning:
-      exit_warning(f"value = {value}|value={value:9.6f}")
+      exit_warning(status_message)
 
     else:
-      exit_ok(f"value = {value}|value={value:9.6f}")
+      exit_ok(status_message)
 
   elif args.operator == 'lt':
 
     if value < args.critical:
-      exit_critical(f"value = {value}|value={value:9.6f}")
+      exit_critical(status_message)
 
     elif value < args.warning:
-      exit_warning(f"value = {value}|value={value:9.6f}")
+      exit_warning(status_message)
 
     else:
-      exit_ok(f"value = {value}|value={value:9.6f}")
+      exit_ok(status_message)
 
 
 
